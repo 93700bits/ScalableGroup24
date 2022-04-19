@@ -31,20 +31,22 @@ public class InventoryRepository {
 		Class.forName (properties.getProperty(cdriver));
 		conn = DriverManager.getConnection (properties.getProperty(url), properties.getProperty(user), properties.getProperty(pwd));
 		
-//		String invData="";
-//		String insertSQL = "INSERT INTO inventory.inventory (prodID, prodAvailability,category) VALUES (?, ?,?)";
-//		PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
-//		preparedStatement.setInt(1, 6);
-//		preparedStatement.setString(2, "yes");
-//		preparedStatement.setString(3, "Fiction");
-//		preparedStatement.executeUpdate();
-		
-		
 	}
+	
+	public String enterInventoryDetails(int pID, String avail, String catgr) throws SQLException {
+		String insertSQL = "INSERT INTO inventory.inventory (prodID, prodAvailability,category) VALUES (?, ?,?)";
+		PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
+		preparedStatement.setInt(1,pID);
+		preparedStatement.setString(2,avail);
+		preparedStatement.setString(3,catgr);
+		int c=preparedStatement.executeUpdate();
+		if (c==1) {
+			return ("Success");
+		}else 
+			return("Failure");
+		}
 	public List<String> displayAll() throws SQLException {
-		String invData="";
 		List<String> l=new ArrayList<String>();
-		List<String> sl=new ArrayList<String>();
 		Statement st=conn.createStatement();
 		String query="select * from inventory.inventory where invID";
 		ResultSet rs=st.executeQuery(query);

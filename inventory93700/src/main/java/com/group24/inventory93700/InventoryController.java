@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +27,9 @@ public class InventoryController {
 	@GetMapping(value = "/inventory/all")
 	public @ResponseBody List<String> getAllDetails() throws SQLException{
 		return invRep.displayAll();
+	}
+	@GetMapping(value="/inventory/enterInventoryDetails")
+	public String insertInventoryDetails() throws SQLException{
+		return invRep.enterInventoryDetails(9, "Yes", "Non Fiction");
 	}
 }
